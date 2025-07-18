@@ -97,14 +97,4 @@ await asyncio.gather(*(scrape_symbol(symbol) for symbol in symbols))
 
 ---
 
-## 🔧 可选增强
 
-可以进一步支持：
-
-- 自动下拉加载更多新闻
-- 抓取摘要、副标题、时间、作者等字段
-- 合并所有股票为一个 Excel 文件
-
----
-
-📘 如用于 GitHub 项目，可作为 `README.md` 展示项目功能。
