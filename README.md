@@ -35,15 +35,18 @@ https://seekingalpha.com/symbol/TSLA/news
 
 ## 💻 3. 完整脚本（适配 Jupyter 和 .py 文件）
 
-```python
-import pandas as pd
+```import pandas as pd
 from tqdm.asyncio import tqdm
 import asyncio
 from playwright.async_api import async_playwright
 import nest_asyncio
+import os
 
 # Jupyter Notebook 补丁：解决 asyncio loop 冲突
 nest_asyncio.apply()
+
+# 获取用户桌面路径
+desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 
 # 股票代码列表（可自定义）
 symbols = ["AAPL", "TSLA", "NVDA"]
@@ -78,7 +81,7 @@ async def scrape_symbol(symbol):
 
         if data:
             df = pd.DataFrame(data)
-            filename = f"{symbol.lower()}_news_playwright.csv"
+            filename = os.path.join(desktop_path, f"{symbol.lower()}_news_playwright.csv")
             df.to_csv(filename, index=False, encoding="utf-8-sig")
             print(f"✅ Saved {len(df)} articles to {filename}")
         else:
@@ -86,6 +89,7 @@ async def scrape_symbol(symbol):
 
 # 启动任务
 await asyncio.gather(*(scrape_symbol(symbol) for symbol in symbols))
+
 ```
 
 ---
